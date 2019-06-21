@@ -1,20 +1,10 @@
 <app-header></app-header>
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-</div>
 
 <div class="container">
   <div class="row">
     <div class="col-xs-12">
-      <input type="text>" [(ngModel)]="name">
-      <p>{{ name }}</p>
-      <app-servers></app-servers>
-    </div>
-    <div class="col-xs-12">
-      <warning-alert></warning-alert>
-      <success-alert></success-alert>
+      <app-recipes></app-recipes>
+      <app-shopping-list></app-shopping-list>
     </div>
   </div>
 
