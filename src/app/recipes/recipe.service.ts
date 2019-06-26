@@ -22,7 +22,6 @@ export class RecipeService {
       [
         new Ingredient('Buns', 2),
         new Ingredient('Tomato', 1)
-
       ])
   ];
 
