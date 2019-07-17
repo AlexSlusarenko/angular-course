@@ -12,8 +12,13 @@ export class RecipeService {
 
   recipesChanged = new Subject<Recipe[]>();
 
+  setRecipes(recipes: Recipe[]) {
+    this.recipes = recipes;
+    this.recipesChanged.next(this.recipes.slice())
+  }
+
   private recipes: Recipe[] = [
-    new Recipe(
+/*    new Recipe(
       'A test recipe',
       'siple descr',
       'https://www.maxpixel.net/static/photo/1x/Food-Vegetable-White-Kidney-Bean-Recipe-2728708.jpg',
@@ -28,7 +33,7 @@ export class RecipeService {
       [
         new Ingredient('Buns', 2),
         new Ingredient('Tomato', 1)
-      ])
+      ])*/
   ];
 
   getRecipes() {
@@ -57,6 +62,4 @@ export class RecipeService {
     this.recipes.splice(index, 1);
     this.recipesChanged.next(this.recipes.slice())
   }
-
-
 }
