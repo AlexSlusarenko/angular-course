@@ -34,7 +34,6 @@ export class AuthComponent {
     const authObs = this.signupOrSignin(email, password);
 
     authObs.subscribe(response => {
-      console.log(response);
       this.isLoading = false;
       this.router.navigate(['/recipes']);
     }, errorMessage => {

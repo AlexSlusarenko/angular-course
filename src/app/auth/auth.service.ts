@@ -4,7 +4,6 @@ import {catchError, tap} from 'rxjs/operators';
 import {BehaviorSubject, throwError} from 'rxjs';
 import {User} from './user.model';
 import {Router} from '@angular/router';
-import {load} from '@angular/core/src/render3';
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
@@ -13,6 +12,8 @@ export class AuthService {
   private signinUrl = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyC0V2TPkPCgh9J0hYZUgjuKwXRzy4PB0FI';
 
   userSubject = new BehaviorSubject<User>(null);
+
+  tokenExpirationTimer: any;
 
   constructor(private http: HttpClient,
               private router: Router) {
@@ -39,6 +40,19 @@ export class AuthService {
   logout() {
     this.userSubject.next(null);
     this.router.navigate(['/auth']);
+
+    localStorage.removeItem('userData');  //localStorage.clear() - to clear everything
+
+    if (this.tokenExpirationTimer) {
+      clearTimeout(this.tokenExpirationTimer);
+    }
+    this.tokenExpirationTimer = null;
+  }
+
+  autoLogout(expiration: number) { //ms
+    this.tokenExpirationTimer = setTimeout(() => {
+      this.logout();
+    }, expiration);
   }
 
   autoLogin() {
@@ -61,13 +75,19 @@ export class AuthService {
 
     if (loadedUser.token) {
       this.userSubject.next(loadedUser);
+      const expiration = new Date(userData._tokenExpirationDate).getTime() - new Date().getTime();
+
+      this.autoLogout(expiration);
     }
   }
 
   private handleAuthentication(resData) {
-    const expiration = new Date(new Date().getTime() + +resData.expiredIn * 1000);
+
+    const expiration = new Date(new Date().getTime() + +resData.expiresIn * 1000);
     const user = new User(resData.email, resData.localId, resData.idToken, expiration);
     this.userSubject.next(user);
+
+    this.autoLogout((expiration.getTime() - new Date().getTime()));
 
     localStorage.setItem('userData', JSON.stringify(user));
   }
@@ -108,7 +128,7 @@ export interface AuthResponse {
   idToken: string;
   email: string;
   refreshToken: string;
-  expiredIn: string;
+  expiresIn: string;
   localId: string;
   registered?: boolean;
 }
