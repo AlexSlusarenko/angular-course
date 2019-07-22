@@ -5,11 +5,8 @@ import {HttpClientModule} from '@angular/common/http';
 import {AppComponent} from './app.component';
 import {HeaderComponent} from './header/header.component';
 import {AppRoutingModule} from './app-routing.module';
-import {RecipesModule} from './recipes/recipes.module';
-import {ShoppingListModule} from './shopping-list/shopping-list.module';
 import {SharedModule} from './shared/shared.module';
 import {CoreModule} from './core.module';
-import {AuthModule} from './auth/auth.module';
 
 @NgModule({
   declarations: [
@@ -18,16 +15,13 @@ import {AuthModule} from './auth/auth.module';
   ],
   imports: [
     AppRoutingModule,
-    AuthModule,
     BrowserModule,
-
     HttpClientModule, //unlocks http client
-    RecipesModule,
-    ShoppingListModule,
     SharedModule,
     CoreModule,
   ],
   bootstrap: [AppComponent],
+  //providers: [LoggingService] // all app single instance
 })
 export class AppModule {
 }

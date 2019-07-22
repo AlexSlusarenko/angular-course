@@ -8,7 +8,7 @@ import {AuthInterceptor} from './auth/auth-interceptor.service';
   providers: [
     ShoppingListService, //for demo purposes provided here, better to use: @Injectable({providedIn: '...'})
     RecipeService,
-    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
   ]
   //services does not need to be exported
 })
