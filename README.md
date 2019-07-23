@@ -1,8 +1,13 @@
 # AngularCourse
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.2.2.
+This project is an Angular 8 tutorial
 
-## Development server
+## Development
+
+- [npm](https://www.npmjs.com/) v6.10
+- [Node.js](https://nodejs.org/en/) v10.16.0
+- [Firebase CLI](https://firebase.google.com/docs/cli) - for deployment
+- [Angular CLI](https://github.com/angular/angular-cli) version 8.1.2.
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
