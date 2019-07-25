@@ -1,10 +1,7 @@
 import {Ingredient} from '../../shared/ingredient.model';
 import * as SLActions from './shopping-list.actions';
-import {AddIngredients, DeleteIngredient, StartEdit, UpdateIngredient} from './shopping-list.actions';
+import {AddIngredient, AddIngredients, StartEdit, UpdateIngredient} from './shopping-list.actions';
 
-export interface AppState {
-  shoppingList: ShoppingListState;
-}
 
 export interface ShoppingListState {
   ingredients: Ingredient[],
@@ -25,7 +22,7 @@ export function shoppingListReducer(state: ShoppingListState = initialState, act
   switch (action.type) {
 
     case SLActions.ADD_INGREDIENT:
-      const addAction = (action as AddIngredients);
+      const addAction = (action as AddIngredient);
       return {
         ...state,
         ingredients: [...state.ingredients, addAction.payload]
@@ -52,10 +49,11 @@ export function shoppingListReducer(state: ShoppingListState = initialState, act
       };
 
     case SLActions.DELETE_INGREDIENT:
-      const deleteAction = (action as DeleteIngredient);
       return {
         ...state,
-        ingredients: state.ingredients.filter((ig, index) => {return index != state.editedIngredientIndex}),
+        ingredients: state.ingredients.filter((ig, index) => {
+          return index != state.editedIngredientIndex;
+        }),
         editedIngredientIndex: -1,
         editedIngredient: null
       };
