@@ -2,7 +2,7 @@
 
 This project is an Angular 8 tutorial
 
-## Development
+## Development 
 
 - [npm](https://www.npmjs.com/) v6.10
 - [Node.js](https://nodejs.org/en/) v10.16.0
