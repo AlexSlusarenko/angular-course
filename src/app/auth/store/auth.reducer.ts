@@ -1,12 +1,17 @@
 import {User} from '../user.model';
 import * as fromAuthActions from './auth.actions';
+import {LoginFail} from './auth.actions';
 
 export interface AuthState {
   user: User;
+  authError: string;
+  loading: boolean;
 }
 
 const initialAuthState: AuthState = {
-  user: null
+  user: null,
+  authError: null,
+  loading: false,
 };
 
 export function authReducer(
@@ -18,13 +23,39 @@ export function authReducer(
       const loginAction = (action as fromAuthActions.Login);
       return {
         ...state,
-        user: loginAction.payload
+        user: loginAction.payload,
+        authError: null,
+        loading: false,
       };
 
     case fromAuthActions.LOGOUT:
       return {
         ...state,
-        user: null
+        user: null,
+        authError: null,
+      };
+
+    case fromAuthActions.LOGIN_START:
+    case fromAuthActions.SIGNUP_START:
+      return {
+        ...state,
+        authError: null,
+        loading: true,
+      };
+
+    case fromAuthActions.LOGIN_FAIL:
+      const loginFailedAction = (action as LoginFail);
+      return {
+        ...state,
+        user: null,
+        authError: loginFailedAction.payload,
+        loading: false,
+      };
+
+    case fromAuthActions.CLEAR_ERROR:
+      return {
+        ...state,
+        authError: null
       };
 
     default:
