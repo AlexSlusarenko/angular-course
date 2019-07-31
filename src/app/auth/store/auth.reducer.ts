@@ -23,7 +23,7 @@ export function authReducer(
       const loginAction = (action as fromAuthActions.Login);
       return {
         ...state,
-        user: loginAction.payload,
+        user: loginAction.payload.user,
         authError: null,
         loading: false,
       };

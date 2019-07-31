@@ -25,6 +25,14 @@ export class DataStorageService {
       .subscribe(response => console.log(response));
   }
 
+  fetchRecipesEffect() {
+    return this.http.get<Recipe[]>(this.url + 'recipes.json');
+  }
+
+  storeRecipesEffect(recipes: Recipe[]) {
+    return this.http.put(this.url + 'recipes.json', recipes);
+  }
+
   fetchRecipes() {
     return this.http.get<Recipe[]>(this.url + 'recipes.json')
       .pipe(map(recipes => { //rxjs .map()

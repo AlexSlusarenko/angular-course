@@ -12,7 +12,7 @@ export const AUTO_LOGIN = '[Auth] AUTO_LOGIN';
 export class Login implements Action {
   readonly type: string = LOGIN;
 
-  constructor(public payload: User) {
+  constructor(public payload: {user: User, redirect: boolean}) {
   }
 }
 

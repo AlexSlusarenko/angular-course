@@ -38,8 +38,10 @@ export class AuthEffects {
   @Effect({dispatch: false}) //do not return a new action
   authRedirect = this.actions$.pipe(
     ofType(LOGIN),
-    tap(() => {
-      this.router.navigate(['/']);
+    tap((loginAction: Login) => {
+      if (loginAction.payload.redirect) {
+        this.router.navigate(['/']);
+      }
     })
   );
 
@@ -76,7 +78,7 @@ export class AuthEffects {
 
       if (loadedUser.token) {
         this.authService.setLogoutTimer(loadedUser._tokenExpirationDate.getTime() - new Date().getTime());
-        return new Login(loadedUser);
+        return new Login({user: loadedUser, redirect: false});
       }
 
       return {type: 'DUMMY'};
@@ -96,7 +98,7 @@ export class AuthEffects {
 
     this.authService.setLogoutTimer(+resData.expiresIn * 1000);
 
-    return new Login(user);
+    return new Login({user: user, redirect: true});
   };
 
   private handleError = (errorRes: HttpErrorResponse) => {
