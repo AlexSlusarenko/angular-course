@@ -11,6 +11,8 @@ import {CoreModule} from './core.module';
 import {appReducer} from './store/app.reducer';
 import {EffectsModule} from '@ngrx/effects';
 import {AuthEffects} from './auth/store/auth.effects';
+import {StoreRouterConnectingModule} from '@ngrx/router-store';
+import {RecipeEffects} from './recipes/store/recipe.effects';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,8 @@ import {AuthEffects} from './auth/store/auth.effects';
     BrowserModule,
     HttpClientModule, //unlocks http client
     StoreModule.forRoot(appReducer),
-    EffectsModule.forRoot([AuthEffects]),
+    EffectsModule.forRoot([AuthEffects, RecipeEffects]),
+    StoreRouterConnectingModule.forRoot(), //for demo purposes
     SharedModule,
     CoreModule,
   ],
