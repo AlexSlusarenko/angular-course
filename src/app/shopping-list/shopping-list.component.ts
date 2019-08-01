@@ -14,7 +14,7 @@ import {AppState} from '../store/app.reducer';
 export class ShoppingListComponent implements OnInit, OnDestroy {
 
   ingredients: Ingredient[];
-  private ingredientsObs: Observable<{ ingredients: Ingredient[] }>;
+  ingredientsObs: Observable<{ ingredients: Ingredient[] }>;
 
   constructor(private store: Store<AppState>) {
   }

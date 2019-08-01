@@ -21,7 +21,7 @@ import {RecipeEffects} from './recipes/store/recipe.effects';
   ],
   imports: [
     AppRoutingModule,
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     HttpClientModule, //unlocks http client
     StoreModule.forRoot(appReducer),
     EffectsModule.forRoot([AuthEffects, RecipeEffects]),
