@@ -10,7 +10,6 @@ import {AddIngredients} from '../../shopping-list/store/shopping-list.actions';
 @Component({
   selector: 'app-recipe-detail',
   templateUrl: './recipe-detail.component.html',
-  styleUrls: ['./recipe-detail.component.css']
 })
 export class RecipeDetailComponent implements OnInit {
 
